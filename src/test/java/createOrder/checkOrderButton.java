@@ -1,62 +1,82 @@
 package createOrder;
 
+import pom.MainPage;
+import pom.OrderPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pom.MainPage;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
+@RunWith(Parameterized.class)
 
 public class checkOrderButton {
 
     private WebDriver driver;
 
+    private final int numberOfButton;
+    private final String name;
+    private final String lastName;
+    private final String metro;
+    private final String address;
+    private final String phone;
+    private final String date;
+    private final String period;
+
+
+    public checkOrderButton(int numberOfButton, String name, String lastName, String metro, String address, String phone, String date, String period){
+        this.numberOfButton = numberOfButton;
+        this.name = name;
+        this.lastName = lastName;
+        this.metro = metro;
+        this.address = address;
+        this.phone = phone;
+        this.date = date;
+        this.period = period;
+
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] getOrderData(){
+        return new Object[][]{
+                {0, "Баффи", "Саммерз", "Сокольники", "Ленина, 21", "+79244771234", "21.11.2022", "сутки"},
+                {1, "Чиполлино", "Иванов", "Комсомольская", "Садовая, 33", "+79244771235", "01.01.2022", "двое суток"},
+        };
+    }
+
     @Before
-    public void setUp() {
-        driver = new ChromeDriver();
+    public void setUpChrome() {
+        driver = new ChromeDriver();// для проверки в хроме
+        //driver = new FirefoxDriver(); если приспичит проверить файерфоксе
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
-
     @Test
-    public void textShownWhenPressArrow () {
-        WebDriver driver = new ChromeDriver();
+    public void orderScooter(){
         MainPage mainPage = new MainPage(driver);
+        OrderPage orderPage = new OrderPage(driver);
 
-        // Заходим на главную страницу
         mainPage.open();
-        // Закрываем сообщение про куки
-        mainPage.clickCookieButton();
-        // Нажимаем на верхнюю кнопку ЗАКАЗАТЬ
-        mainPage.clickOrderButtonUp();
-        // Вводим имя в поле ИМЯ
-        mainPage.enterYourName();
-        // Вводим фамилию в поле ФАМИЛИЯ
-        mainPage.enterYourLastName();
-        // Вводим адрес в поле АДРЕС
-        mainPage.enterYourAddress();
-        // Выбираем станцию метро
-        mainPage.enterFieldMetroStation();
-        // Заполняем поле ТЕЛЕФОН
-        mainPage.enterYourPhoneNumber();
-        // Нажимаем на кнопку ДАЛЕЕ
-        mainPage.clickNextButton();
-        // Выбираем дату
-        mainPage.clickFieldDeliveryDate();
-        // Выбираем срок аренды
-        mainPage.clickFieldDropdown();
-        // Нажимаем ЗАКАЗАТЬ
-        mainPage.clickMiddleOrderButton();
-        // Подтверждаем заказ кнопкой ДА
-        mainPage.clickConfirmOrderButton();
-        // Метод для проверки того, что появилось всплывающее окно с сообщением об успешном создании заказа
-        mainPage.clickCheckStatusButton();
+        mainPage.pressCookieButton();
+        mainPage.clickOrderButton(numberOfButton);
+        orderPage.inputName(name);
+        orderPage.inputLastName(lastName);
+        orderPage.inputAddress(address);
+        orderPage.selectMetroStation(metro);
+        orderPage.inputPhoneNumber(phone);
+        orderPage.clickNextButton();
+        orderPage.selectDeliveryDate(date);
+        orderPage.selectDropdownPeriod(period);
+        orderPage.clickMiddleOrderButton();
+        orderPage.clickConfirmButton();
+        orderPage.checkOrderIsCreated();
     }
 
-        @After
-        public void teardown() {
-            //закроем браузер
-            driver.quit();
+    @After
+    public void tearDown(){
+        driver.quit();
     }
 }
