@@ -63,7 +63,7 @@ public class checkTextInArrow {
     public void checkQuestions() {
         MainPage mainPage = new MainPage(driver, faqAccordionItemId);
 
-        //кликнуть по вопросу
+        //кликнуть по вопрОсу
         mainPage.clickFaqAccordionItemHeading();
         //проверить, виден ли ответ
         WebElement element = mainPage.getFaqAccordionItemPanel();
