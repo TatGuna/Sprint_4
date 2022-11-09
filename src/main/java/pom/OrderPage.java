@@ -82,7 +82,7 @@ public class OrderPage {
         }
     }
 
-    //заполнени поля ИМЯ!
+    //заполнени поля ИМЯ
     public void inputName(String text){//ввод имени в поле имени
         driver.findElement(fieldName).sendKeys(text);
     }

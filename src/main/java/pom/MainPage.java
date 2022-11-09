@@ -30,7 +30,7 @@ public class MainPage {
         driver.get(url);
     }
 
-    //нажать на кнопку ДА ВСЕ ПРИВЫКЛИ!
+    //нажать на кнопку ДА ВСЕ ПРИВЫКЛИ
     public void pressCookieButton() {
         driver.findElement(cookieButton).click();
     }
