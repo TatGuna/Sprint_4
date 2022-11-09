@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 public class checkTextInArrow {
     private WebDriver driver;
     private final String faqAccordionItemId;
-    private final boolean faqAccordionItemPanelHiddenExpected; //true - элемент скрыт, false - элемент видим
+    private final boolean faqAccordionItemPanelHiddenExpected; // true - элемент скрыт, false - элемент видим
     private final String faqAccordionItemPanelTextExpected;
 
     public checkTextInArrow(String accordionItemId, boolean faqAccordionItemPanelHiddenExpected, String faqAccordionItemPanelText) {
@@ -63,7 +63,7 @@ public class checkTextInArrow {
     public void checkQuestions() {
         MainPage mainPage = new MainPage(driver, faqAccordionItemId);
 
-        //кликнуть по вопросу
+        //кликнуть по вопрОсу
         mainPage.clickFaqAccordionItemHeading();
         //проверить, виден ли ответ
         WebElement element = mainPage.getFaqAccordionItemPanel();
