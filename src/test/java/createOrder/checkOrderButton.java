@@ -1,6 +1,5 @@
 package createOrder;
 
-import pom.MainPage;
 import pom.OrderPage;
 import org.junit.After;
 import org.junit.Before;
@@ -9,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
 @RunWith(Parameterized.class)
@@ -56,12 +54,11 @@ public class checkOrderButton {
     }
     @Test
     public void orderScooter(){
-        MainPage mainPage = new MainPage(driver);
         OrderPage orderPage = new OrderPage(driver);
 
-        mainPage.open();
-        mainPage.pressCookieButton();
-        mainPage.clickOrderButton(numberOfButton);
+        orderPage.open();
+        orderPage.pressCookieButton();
+        orderPage.clickOrderButton(numberOfButton);
         orderPage.inputName(name);
         orderPage.inputLastName(lastName);
         orderPage.inputAddress(address);
